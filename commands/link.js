@@ -3,27 +3,20 @@ const { getPlayerData } = require('../utils/clashAPI');
 const { saveLinkedUser } = require('../utils/storage');
 
 module.exports = {
-    data: new SlashCommandBuilder()
-        .setName('link')
-        .setDescription('Link a Clash player to a Discord user')
-        .addUserOption(option =>
-            option.setName('user').setDescription('Discord user').setRequired(true))
-        .addStringOption(option =>
-            option.setName('tag').setDescription('Clash player tag (#ABC123)').setRequired(true)),
+  data: new SlashCommandBuilder()
+    .setName('link')
+    .setDescription('Link a Clash player to a Discord user')
+    .addUserOption(opt =>
+      opt.setName('user').setDescription('Discord user').setRequired(true))
+    .addStringOption(opt =>
+      opt.setName('tag').setDescription('Clash player tag').setRequired(true)),
 
-    async execute(interaction) {
-        const user = interaction.options.getUser('user');
-        const tag = interaction.options.getString('tag').replace('#', '').toUpperCase();
-
-        const playerData = await getPlayerData(tag);
-        if (!playerData.name) {
-            return interaction.reply({ content: '❌ Failed to fetch player.', ephemeral: true });
-        }
-
-        await saveLinkedUser(user.id, tag, playerData);
-
-        await interaction.reply({
-            content: `✅ Linked **${playerData.name}** (TH${playerData.townHallLevel}) to <@${user.id}>.`,
-        });
-    },
+  async execute(interaction) {
+    const user = interaction.options.getUser('user');
+    const tag = interaction.options.getString('tag').replace('#', '').toUpperCase();
+    const data = await getPlayerData(tag);
+    if (data.reason) return interaction.reply({ content: '❌ API error or invalid tag.', ephemeral: true });
+    await saveLinkedUser(user.id, tag, data);
+    await interaction.reply({ content: `✅ Linked **${data.name}** (TH${data.townHallLevel}) to <@${user.id}>.` });
+  }
 };
