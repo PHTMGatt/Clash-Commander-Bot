@@ -5,7 +5,12 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "render-build": "npm install && npm run start"
+  },
+  "engines": {
+    "node": ">=18.x"
   },
   "dependencies": {
     "clash-commander-bot": "file:",
@@ -13,5 +18,8 @@
     "dotenv": "^16.3.1",
     "express": "^4.19.2",
     "node-fetch": "^2.6.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
   }
 }
