@@ -1,6 +1,6 @@
 # 🏆 Clash Commander Bot
 
-<img src="assets/base-images/%231CLAN.png" width="400" alt="#1 CLAN Logo"/>
+<img src="assets/#1CLAN.png" width="400" alt="#1 CLAN Logo"/>
 
 A modular Discord bot built for elite Clash of Clans clans.
 
