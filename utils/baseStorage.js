@@ -1,16 +1,19 @@
-const fs = require('fs');
-const path = require('path');
-const file = path.join(__dirname, '../data/bases/bases.json');
+import fs from 'fs';
+import path from 'path';
 
-function saveBase(th, type, link) {
-    let all = [];
-    if (fs.existsSync(file)) {
-        all = JSON.parse(fs.readFileSync(file));
-    }
-    const id = all.length + 1;
-    all.push({ id, th, type, link, timestamp: Date.now() });
-    fs.writeFileSync(file, JSON.stringify(all, null, 2));
-    return id;
+const file = path.resolve('./data/bases.json');
+
+export function saveBase(th, type, link) {
+  let data = {};
+  if (fs.existsSync(file)) {
+    data = JSON.parse(fs.readFileSync(file));
+  }
+
+  if (!data[th]) data[th] = {};
+  if (!data[th][type]) data[th][type] = [];
+
+  data[th][type].push(link);
+  fs.writeFileSync(file, JSON.stringify(data, null, 2));
+
+  return true;
 }
-
-module.exports = { saveBase };
