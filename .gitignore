@@ -1,0 +1,29 @@
+# Node.js dependencies
+node_modules/
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+
+# System files
+.DS_Store
+Thumbs.db
+
+# VS Code config
+.vscode/
+
+# Data storage
+data/*.json
+!data/.gitkeep
+
+# Image cache / screenshots
+assets/base-images/*.png
+!assets/base-images/.gitkeep
+
+# OS crap
+*.swp
+*.swo

@@ -1,0 +1,17 @@
+{
+  "name": "clash-discord-bot",
+  "version": "1.0.0",
+  "description": "Modular Discord bot for Clash of Clans server",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "clash-discord-bot": "file:",
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.3.1",
+    "express": "^4.19.2",
+    "node-fetch": "^2.6.7"
+  }
+}
