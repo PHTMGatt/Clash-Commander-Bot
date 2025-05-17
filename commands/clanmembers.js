@@ -1,7 +1,7 @@
-const { SlashCommandBuilder } = require('discord.js');
-const { getClanMembers } = require('../utils/clashAPI');
+import { SlashCommandBuilder } from 'discord.js';
+import { getClanMembers } from '../utils/clashAPI.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('clanmembers')
     .setDescription('Get a list of clan members')
@@ -11,7 +11,9 @@ module.exports = {
   async execute(interaction) {
     const tag = interaction.options.getString('tag').replace('#', '').toUpperCase();
     const members = await getClanMembers(tag);
-    if (!Array.isArray(members)) return interaction.reply({ content: '❌ Error fetching clan members.', ephemeral: true });
+    if (!Array.isArray(members)) {
+      return interaction.reply({ content: '❌ Error fetching clan members.', ephemeral: true });
+    }
 
     const list = members.map(m => `• ${m.name} (${m.tag}) - TH${m.th || '?'}`).join('\n');
     await interaction.reply({ content: `🛡️ **Clan Members:**\n${list}` });

@@ -1,7 +1,7 @@
-const { SlashCommandBuilder, EmbedBuilder } = require('discord.js');
-const { getPlayerData } = require('../utils/clashAPI');
+import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
+import { getPlayerData } from '../utils/clashAPI.js';
 
-module.exports = {
+export default {
   data: new SlashCommandBuilder()
     .setName('stats')
     .setDescription('Show Clash of Clans player stats')
@@ -11,7 +11,9 @@ module.exports = {
   async execute(interaction) {
     const tag = interaction.options.getString('tag').replace('#', '').toUpperCase();
     const data = await getPlayerData(tag);
-    if (data.reason) return interaction.reply({ content: '❌ API error or tag invalid.', ephemeral: true });
+    if (data.reason) {
+      return interaction.reply({ content: '❌ API error or tag invalid.', ephemeral: true });
+    }
 
     const embed = new EmbedBuilder()
       .setTitle(`${data.name} (${data.tag})`)

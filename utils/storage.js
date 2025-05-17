@@ -1,8 +1,9 @@
-const fs = require('fs');
-const path = require('path');
-const file = path.join(__dirname, '../data/linkedAccounts.json');
+import fs from 'fs';
+import path from 'path';
 
-function saveLinkedUser(discordId, tag, data) {
+const file = path.resolve('./data/linkedAccounts.json');
+
+export function saveLinkedUser(discordId, tag, data) {
   let existing = {};
   if (fs.existsSync(file)) {
     existing = JSON.parse(fs.readFileSync(file));
@@ -10,5 +11,3 @@ function saveLinkedUser(discordId, tag, data) {
   existing[discordId] = { tag, name: data.name, townHall: data.townHallLevel };
   fs.writeFileSync(file, JSON.stringify(existing, null, 2));
 }
-
-module.exports = { saveLinkedUser };

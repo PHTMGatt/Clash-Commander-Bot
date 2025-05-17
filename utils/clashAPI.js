@@ -1,17 +1,17 @@
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
 function encodeTag(tag) {
   return tag.replace('#', '%23');
 }
 
-async function getPlayerData(tag) {
+export async function getPlayerData(tag) {
   const res = await fetch(`https://api.clashofclans.com/v1/players/${encodeTag(tag)}`, {
     headers: { Authorization: `Bearer ${process.env.CLASH_API_TOKEN}` }
   });
   return res.json();
 }
 
-async function getClanMembers(clanTag) {
+export async function getClanMembers(clanTag) {
   const res = await fetch(`https://api.clashofclans.com/v1/clans/${encodeTag(clanTag)}/members`, {
     headers: { Authorization: `Bearer ${process.env.CLASH_API_TOKEN}` }
   });
@@ -22,5 +22,3 @@ async function getClanMembers(clanTag) {
     th: member.townHallLevel
   })) || [];
 }
-
-module.exports = { getPlayerData, getClanMembers };
