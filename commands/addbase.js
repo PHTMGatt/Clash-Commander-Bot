@@ -1,7 +1,7 @@
-const { SlashCommandBuilder } = require('discord.js');
+import { SlashCommandBuilder } from 'discord.js';
 const { saveBase } = require('../utils/baseStorage');
 
-module.exports = {
+export default {
     data: new SlashCommandBuilder()
         .setName('addbase')
         .setDescription('Add a base layout')
