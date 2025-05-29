@@ -1,28 +1,24 @@
-function parseBaseMessage(content) {
-  const linkMatch = content.match(/https:\/\/link\.clashofclans\.com\/en\?action=CopyLayout.*?(?=\s|$)/);
+// src/features/bases/'parseBase.js'
+
+module.exports.parseBaseMessage = (content) => {
+  const linkMatch = content.match(/https:\/\/link\.clashofclans\.com\/en\/\?action=OpenLayout&id=[\w%-]+/);
   if (!linkMatch) return null;
 
-  const lower = content.toLowerCase();
+  const link = linkMatch[0];
 
-  const thMatch = lower.match(/th\s?(\d{1,2})/);
-  const townHall = thMatch ? `TH${thMatch[1]}` : 'TH-Unknown';
+  const thMatch = content.match(/TH(\d{2})/i);
+  const townHall = thMatch ? `TH${thMatch[1]}` : 'TH15';
 
-  const type = /cwl|war|legend/.exec(lower);
-  const baseType = type ? type[0] : 'general';
+  const typeMatch = content.match(/(war|cwl|legend)/i);
+  const baseType = typeMatch ? typeMatch[1].toLowerCase() : 'war';
 
-  let layoutStyle = 'unspecified';
-  if (lower.includes('box')) layoutStyle = 'box';
-  else if (lower.includes('ring')) layoutStyle = 'ring';
-  else if (lower.includes('diamond')) layoutStyle = 'diamond';
-  else if (lower.includes('symmetrical')) layoutStyle = 'symmetrical';
-  else if (lower.includes('asymmetrical')) layoutStyle = 'asymmetrical';
+  const layoutMatch = content.match(/(box|ring|diamond|symmetrical|asymmetrical)/i);
+  const layoutStyle = layoutMatch ? layoutMatch[1].toLowerCase() : 'unspecified';
 
   return {
+    link,
     townHall,
     baseType,
-    layoutStyle,
-    link: linkMatch[0]
+    layoutStyle
   };
-}
-
-module.exports = { parseBaseMessage };
+};
