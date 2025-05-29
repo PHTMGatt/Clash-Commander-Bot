@@ -1,0 +1,45 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  font-family: 'Segoe UI', Tahoma, sans-serif;
+  color: white;
+  text-align: center;
+}
+
+h1 {
+  font-size: 3.2rem;
+  text-shadow: 0 0 12px rgba(255,255,255,0.8), 0 0 24px rgba(0,0,0,0.4);
+  animation: glow 2.5s ease-in-out infinite alternate;
+}
+
+.link {
+  margin-top: 20px;
+  font-size: 1.2rem;
+}
+
+.link a {
+  color: #80dfff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px rgba(255,255,255,0.6),
+                 0 0 20px rgba(0,0,0,0.3);
+  }
+  to {
+    text-shadow: 0 0 25px rgba(255,255,255,1),
+                 0 0 35px rgba(0,0,0,0.6);
+  }
+}
