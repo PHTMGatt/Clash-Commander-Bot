@@ -10,6 +10,13 @@ A powerful, modular Discord bot for **Clash of Clans** clans.
 
 ---
 
+### 🔗 Invite the Bot
+
+Want to use Clash Commander in your server?  
+👉 [**Click here to invite the bot with the correct permissions.**](https://discord.com/oauth2/authorize?client_id=1373178255120666674&scope=bot%20applications.commands&permissions=2147609664)
+
+---
+
 ## ✨ Key Features
 
 - 🔗 `/link` — Link Discord users to Clash accounts via the official API
