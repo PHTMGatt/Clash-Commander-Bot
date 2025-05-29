@@ -1,13 +1,13 @@
-// src\'index.js'
+// src/'index.js'
 
 require('dotenv').config();
-const { Client, GatewayIntentBits, Collection } = require('discord.js');
+const { Client, GatewayIntentBits, Collection, REST, Routes } = require('discord.js');
 const mongoose = require('mongoose');
 const fs = require('fs');
 const path = require('path');
 const config = require('./src/config/env');
 
-// ✅ Initialize Discord client with required intents
+// ✅ Initialize Discord client
 const client = new Client({
   intents: [
     GatewayIntentBits.Guilds,
@@ -17,10 +17,9 @@ const client = new Client({
   ]
 });
 
-// 🧠 Attach command collection to the client
 client.commands = new Collection();
 
-// 📁 Load all slash commands from subfolders
+// 📁 Load slash commands
 const commandsPath = path.join(__dirname, 'src/commands');
 for (const sub of fs.readdirSync(commandsPath)) {
   const subPath = path.join(commandsPath, sub);
@@ -30,7 +29,7 @@ for (const sub of fs.readdirSync(commandsPath)) {
   }
 }
 
-// 📁 Load all event handlers
+// 📁 Load events
 const eventsPath = path.join(__dirname, 'src/events');
 for (const file of fs.readdirSync(eventsPath).filter(f => f.endsWith('.js'))) {
   const event = require(path.join(eventsPath, file));
@@ -41,7 +40,7 @@ for (const file of fs.readdirSync(eventsPath).filter(f => f.endsWith('.js'))) {
   }
 }
 
-// 🔁 Load scheduled jobs (cron tasks)
+// 🔁 Load cron jobs
 const { scheduleRaidReminders } = require('./src/jobs/scheduleRaidReminders');
 const { scheduleWarReminders } = require('./src/jobs/scheduleWarReminders');
 const { scheduleLegendsCheck } = require('./src/jobs/scheduleLegendsCheck');
@@ -50,7 +49,7 @@ scheduleRaidReminders(client);
 scheduleWarReminders(client);
 scheduleLegendsCheck(client);
 
-// 🌐 Connect to MongoDB then login
+// 🌐 Connect to MongoDB and login bot
 mongoose.connect(config.mongoUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -59,4 +58,21 @@ mongoose.connect(config.mongoUri, {
   client.login(config.discordToken);
 }).catch(err => {
   console.error('MongoDB Error:', err);
+});
+
+// 🚀 Slash command registration (Guild Only — fast updates)
+client.once('ready', async () => {
+  const commands = client.commands.map(cmd => cmd.data.toJSON());
+  const rest = new REST({ version: '10' }).setToken(config.discordToken);
+
+  try {
+    console.log('📡 Registering slash commands...');
+    await rest.put(
+      Routes.applicationGuildCommands(client.user.id, '1179146733763186688'),
+      { body: commands }
+    );
+    console.log('✅ Slash commands registered.');
+  } catch (err) {
+    console.error('❌ Failed to register commands:', err);
+  }
 });
