@@ -13,7 +13,7 @@ A focused, modular **Discord operations bot** built for competitive Clash of Cla
 ## 🔗 Invite the Bot
 
 Want Clash Commander in your server?  
-👉 **Invite link coming soon**
+👉 **[Invite Clash Commander](https://discord.com/oauth2/authorize?client_id=1373178255120666674&scope=bot%20applications.commands&permissions=0)**
 
 ---
 
