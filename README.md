@@ -1,11 +1,7 @@
 # 🏆 Clash Commander Bot
 
 <p align="center">
-  <img src="src/assets/clan-logo.png" width="140" alt="Clan Logo"/>
-</p>
-
-<p align="center">
-  <img src="src/assets/Super_Yeti.webp" width="360" alt="Clash Commander"/>
+  <img src="src/assets/overcharge.png" width="360" alt="Overcharge">
 </p>
 
 A focused, modular **Discord operations bot** built for competitive Clash of Clans clans.
