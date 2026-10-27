@@ -1,7 +1,7 @@
 # 🏆 Clash Commander Bot
 
 <p align="center">
-  <img src="src/assets/overcharge.png" width="360" alt="Overcharge">
+  <img src="https://raw.githubusercontent.com/PHTMGatt/12-React-Portfolio/main/src/assets/photos/Clash%20Commander.png" width="900" alt="Clash Commander project artwork">
 </p>
 
 A focused, modular **Discord operations bot** built for competitive Clash of Clans clans.
